@@ -1,7 +1,7 @@
 'use strict'
 
 const pg = require('pg');
-const postgresUrl = 'postgress://localhost/tweetDB';
+const postgresUrl = 'postgres://localhost/twitterDB';
 const client = new pg.Client(postgresUrl);
 
 client.connect();

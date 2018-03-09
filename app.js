@@ -4,9 +4,7 @@ var app = express();
 var morgan = require('morgan');
 var nunjucks = require('nunjucks');
 var makesRouter = require('./routes');
-var fs = require('fs');
 var path = require('path');
-var mime = require('mime');
 var bodyParser = require('body-parser');
 var socketio = require('socket.io');
 
@@ -30,6 +28,12 @@ var server = app.listen(1337, function(){
 var io = socketio.listen(server);
 
 app.use(express.static(path.join(__dirname, '/public')));
+
+app.use((err, req, res, next) => {
+  console.error(err);
+
+  res.status(err.status || 500).send(err.message);
+});
 
 // modular routing that uses io inside it
 app.use('/', makesRouter(io));
